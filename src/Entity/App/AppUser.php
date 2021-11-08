@@ -305,4 +305,40 @@ class AppUser implements UserInterface, PasswordAuthenticatedUserInterface, Lega
 
         return $this;
     }
+
+    public function getCellphone(): ?string
+    {
+        return $this->cellphone;
+    }
+
+    public function setCellphone(?string $cellphone): self
+    {
+        $this->cellphone = $cellphone;
+
+        return $this;
+    }
+
+    public function getWorkPosition(): ?string
+    {
+        return $this->workPosition;
+    }
+
+    public function setWorkPosition(?string $workPosition): self
+    {
+        $this->workPosition = $workPosition;
+
+        return $this;
+    }
+
+    public function getCsmCompany(): ?CsmCompany
+    {
+        return $this->csmCompany;
+    }
+
+    public function setCsmCompany(?CsmCompany $csmCompany): self
+    {
+        $this->csmCompany = $csmCompany;
+
+        return $this;
+    }
 }

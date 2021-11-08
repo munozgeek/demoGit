@@ -41,5 +41,46 @@ class CsmMeetingAttendees
      */
     public $csmMeeting;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getFlagAssistant(): ?bool
+    {
+        return $this->flagAssistant;
+    }
+
+    public function setFlagAssistant(?bool $flagAssistant): self
+    {
+        $this->flagAssistant = $flagAssistant;
+
+        return $this;
+    }
+
+    public function getAppUser(): ?AppUser
+    {
+        return $this->appUser;
+    }
+
+    public function setAppUser(?AppUser $appUser): self
+    {
+        $this->appUser = $appUser;
+
+        return $this;
+    }
+
+    public function getCsmMeeting(): ?CsmMeeting
+    {
+        return $this->csmMeeting;
+    }
+
+    public function setCsmMeeting(?CsmMeeting $csmMeeting): self
+    {
+        $this->csmMeeting = $csmMeeting;
+
+        return $this;
+    }
+
 
 }

@@ -37,5 +37,46 @@ class CsmComments
      */
     public $csmMeetingDetails;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getComment(): ?string
+    {
+        return $this->comment;
+    }
+
+    public function setComment(?string $comment): self
+    {
+        $this->comment = $comment;
+
+        return $this;
+    }
+
+    public function getAppUser(): ?AppUser
+    {
+        return $this->appUser;
+    }
+
+    public function setAppUser(?AppUser $appUser): self
+    {
+        $this->appUser = $appUser;
+
+        return $this;
+    }
+
+    public function getCsmMeetingDetails(): ?CsmMeetingDetails
+    {
+        return $this->csmMeetingDetails;
+    }
+
+    public function setCsmMeetingDetails(?CsmMeetingDetails $csmMeetingDetails): self
+    {
+        $this->csmMeetingDetails = $csmMeetingDetails;
+
+        return $this;
+    }
+
 
 }
