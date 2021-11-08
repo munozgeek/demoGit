@@ -1,0 +1,9 @@
+{% for flash_message in app.session.flashbag.get('new') %}
+    toastr.success('{{ flash_message }}', 'Nuevo Registro.');
+{% endfor %}
+{% for flash_message in app.session.flashbag.get('edit') %}
+    toastr.success('{{ flash_message }}', 'Registro Actualizado.');
+{% endfor %}
+{% for flash_message in app.session.flashbag.get('pdf') %}
+    window.open('{{ flash_message }}', '_blank');
+{% endfor %}

@@ -1,0 +1,51 @@
+{% extends 'Template/base.html.twig' %}
+
+{% block title %} {{ title}} {% endblock %}
+
+{% block body %}
+    <ol class="breadcrumb page-breadcrumb">
+        <li class="breadcrumb-item"><a href="javascript:void(0);">BEC</a></li>
+        <li class="breadcrumb-item">{{ title }}</li>
+        <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
+    </ol>
+
+    <div class="row">
+        <div class="offset-sm-3 col-md-6">
+            <div id="panel-1" class="panel">
+                <div class="panel-hdr">
+                    <h2>
+                        {{ title }}
+                    </h2>
+                    <div class="panel-toolbar">
+                        <div class="btn-group" id="js-demo-nesting" role="group" aria-label="Button group with nested dropdown">
+                            <a href="{{ url }}" class="btn btn-icon btn-sm btn-outline-primary mr-1 shadow-0 waves-effect waves-themed" data-toggle="tooltip" data-offset="0,10" data-original-title="Volver">
+                                <i class="fad fa-arrow-alt-from-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <div class="alert bg-danger-50 alert-dismissible fade show">
+                            <div class="d-flex align-items-center">
+                                <div class="alert-icon width-8">
+                                    <div class='icon-stack icon-stack-xl'>
+                                        <i class="base base-8 icon-stack-3x opacity-90 color-fusion-900"></i> <i class="base base-9 icon-stack-2x opacity-90 color-danger-900"></i> <i class="fal fa-times-octagon icon-stack-1x opacity-100 color-white"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-1 pl-1">
+                                    <span class="h2">
+                                        Disculpe.
+                                    </span>
+                                    <br>
+                                    {{ message }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

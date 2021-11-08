@@ -1,0 +1,226 @@
+<script src="{{ asset('Metronic/plugins/custom/datatables/datatables.bundle.js') }}"></script>
+<script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.11/js/dataTables.checkboxes.min.js"></script>
+<!-- Insert this at the end of your body element, but before the closing tag -->
+<script src="{{ asset('bundles/datatables/js/datatables.js') }}"></script>
+<script type="text/javascript">
+    $(function() {
+        {{ include('Template/DataTable/language.js.twig') }}
+        var gf = new generalFunctions();
+        $('{{idDataTable}}').initDataTables({{ datatable_settings(datatable) }}, {
+            searching: true,
+            responsive: true,
+            select: {
+                style: 'multi',
+                selector: 'td div input'
+            },
+            dom:
+                "<'row mb-3'<'col-sm-12 col-md-2 d-flex align-items-center justify-content-start'f><'col-sm-12 col-md-8 d-flex align-items-center justify-content-end'B><'col-sm-12 col-md-2 d-flex align-items-center justify-content-start'l>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+            buttons: [
+                {
+                    extend: 'selected',
+                    text: '<i class="fad fa-trash-alt"></i>',
+                    name: 'delete',
+                    titleAttr: 'Eliminar Seleccionados',
+                    className: 'btn-outline-danger deleteSelected'
+                },
+                {#{
+                    extend: 'colvis',
+                    text: 'Ver Columnas',
+                    titleAttr: 'Col visibility',
+                    className: 'btn-outline-default'
+                },
+                {
+                    extend: 'csvHtml5',
+                    text: '<i class="fad fa-file-csv"></i>',
+                    titleAttr: 'Generar CSV',
+                    className: 'btn-outline-default'
+                },
+                {
+                    extend: 'copyHtml5',
+                    text: '<i class="fad fa-copy"></i>',
+                    titleAttr: 'Copiar Tabla',
+                    className: 'btn-outline-default'
+                },
+                {
+                    extend: 'print',
+                    text: '<i class="fad fa-print"></i>',
+                    titleAttr: 'Imprimir Tabla',
+                    className: 'btn-outline-default'
+                }#}
+
+            ]
+        }).then(function(dt) {
+            {% if linkDelete is defined %}
+                $('{{idDataTable}}').on( "click", ".deleteSelected", function() {
+                    var rowsSelected = dt.rows('.selected').data();
+                    bootbox.confirm({
+                        title: "<i class='fad fa-trash-alt text-danger mr-2'></i> ¿Desea eliminar los registros seleccionados?",
+                        message: "<span><strong>Advertencia:</strong> ¡Esta acción no se puede deshacer!</span>",
+                        centerVertical: true,
+                        swapButtonOrder: false,
+                        buttons: {
+                            cancel: {
+                                label: 'No',
+                                className: 'btn-secondary'
+                            },
+                            confirm: {
+                                label: 'Si',
+                                className: 'btn-primary shadow-0'
+                            }
+                        },
+                        className: "modal-alert",
+                        closeButton: false,
+                        callback: function(result) {
+                            if(result) {
+                                if(rowsSelected.length > 0) {
+                                    jsonObj = [];
+                                    $.each( rowsSelected, function( key, item ) {
+                                        itemObj = {}
+                                        itemObj["id"] = item.DT_RowId;
+                                        jsonObj.push(itemObj);
+                                    });
+                                    var preloader = gf.preloader();
+
+                                    $.ajax({
+                                        url: '{{ linkDelete }}/'+JSON.stringify(jsonObj)+'/{{ csrf_token('edit-All') }}',
+                                        method: 'DELETE',
+                                        contentType: 'application/json',
+                                        success: function(r) {
+                                            gf.preloaderFinish(preloader);
+                                            if(r['status'] == 'ok'){
+
+                                                toastr.success(r['message'], r['title']);
+                                                dt.row().remove().draw(false);
+                                            } else {
+
+                                                toastr.error(r['message'], r['title']);
+                                                dt.row().remove().draw(false);
+                                            }
+                                        },
+                                        error: function(request,msg,error) {
+                                            gf.preloaderFinish(preloader);
+                                            toastr.error('Oops! ha ocurrido un error interno, intenta de nuevo la acción que estabas haciendo. Si el problema persiste, ponte en contacto con el administrador', 'Oops!.');
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    });
+                });
+                $('{{idDataTable}}').on( "click", ".delete", function() {
+                    var id = $(this).attr('idregister');
+                    var token = $(this).attr('token');
+                    bootbox.confirm({
+                        title: "<i class='fad fa-trash-alt text-danger mr-2'></i> ¿Desea eliminar este registro?",
+                        message: "<span><strong>Advertencia:</strong> ¡Esta acción no se puede deshacer!</span>",
+                        centerVertical: true,
+                        swapButtonOrder: false,
+                        buttons: {
+                            cancel: {
+                                label: 'No',
+                                className: 'btn-secondary'
+                            },
+                            confirm: {
+                                label: 'Si',
+                                className: 'btn-primary shadow-0'
+                            }
+                        },
+                        className: "modal-alert",
+                        closeButton: false,
+                        callback: function(result) {
+                            if(result) {
+                                var preloader = gf.preloader();
+                                $.ajax({
+                                    url: '{{ linkDelete }}/'+id+'/'+token,
+                                    method: 'DELETE',
+                                    contentType: 'application/json',
+                                    success: function(r) {
+                                        gf.preloaderFinish(preloader);
+                                        if(r['status'] == 'ok'){
+
+                                            toastr.success(r['message'], r['title']);
+                                            dt.row().remove().draw(false);
+                                        } else {
+
+                                            toastr.error(r['message'], r['title']);
+                                        }
+                                    },
+                                    error: function(request,msg,error) {
+                                        gf.preloaderFinish(preloader);
+
+                                        toastr.error('Oops! ha ocurrido un error interno, intenta de nuevo la acción que estabas haciendo. Si el problema persiste, ponte en contacto con el administrador', 'Oops!.');
+                                    }
+                                });
+                            }
+                        }
+                    });
+                });
+            {% endif %}
+            {% if linkEdit is defined %}
+                $('{{idDataTable}}').on( "click", ".edit", function() {
+                    var id = $(this).attr('idregister');
+                    var token = $(this).attr('token');
+                    var preloader = gf.preloader();
+                    window.location.href = '{{ linkEdit }}/'+id+'/'+token;
+                });
+            {% endif %}
+            {% if linkSendMailUser is defined %}
+                $('{{idDataTable}}').on( "click", ".mail", function() {
+                    var id = $(this).attr('idregister');
+                    var token = $(this).attr('token');
+
+                    bootbox.confirm({
+                        title: "<i class='fad fa-paper-plane text-success mr-2'></i> ¿Desea restableser la contraseña del usuario?",
+                        message: "<span><strong>Advertencia:</strong> ¡Esta acción no se puede deshacer!</span>",
+                        centerVertical: true,
+                        swapButtonOrder: false,
+                        buttons: {
+                            cancel: {
+                                label: 'No',
+                                className: 'btn-secondary'
+                            },
+                            confirm: {
+                                label: 'Si',
+                                className: 'btn-primary shadow-0'
+                            }
+                        },
+                        className: "modal-alert",
+                        closeButton: false,
+                        callback: function(result) {
+                            if(result) {
+                                var preloader = gf.preloader();
+                                $.ajax({
+                                    url: '{{ linkSendMailUser }}/'+id+'/'+token,
+                                    method: 'POST',
+                                    contentType: 'application/json',
+                                    success: function(r) {
+                                        gf.preloaderFinish(preloader);
+                                        if(r['status'] == 'ok'){
+
+                                            toastr.success(r['message'], r['title']);
+                                            dt.row().remove().draw(false);
+                                        } else {
+
+                                            toastr.error(r['message'], r['title']);
+                                        }
+                                    },
+                                    error: function(request,msg,error) {
+                                        gf.preloaderFinish(preloader);
+
+                                        toastr.error('Oops! ha ocurrido un error interno, intenta de nuevo la acción que estabas haciendo. Si el problema persiste, ponte en contacto con el administrador', 'Oops!.');
+                                    }
+                                });
+                            }
+                        }
+                    });
+                });
+            {% endif %}
+            dt.on('draw', function() {
+
+            });
+        });
+        {{ include('Template/Base/notifications.js.twig') }}
+    });
+</script>

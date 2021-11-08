@@ -1,0 +1,16 @@
+<div class="col-md-12">
+    <div class="d-sm-flex mr-auto ml-auto mt-auto mb-auto">
+        {% set image = absolute_url(asset('App/Image/Avatar/sinImagen.jpg')) %}
+        {% if row.image is defined %}
+            {% if row.image %}
+                {% set image = absolute_url(asset('App/File/User/'~row.image)) %}
+            {% endif %}
+        {% elseif row.logo is defined %}
+            {% if row.logo %}
+                {% set image = absolute_url(asset('App/File/User/'~row.logo)) %}
+            {% endif %}
+        {% endif %}
+
+        <img src="{{ image }}" style="width: 65px!important;height: 100%"/>
+    </div>
+</div>

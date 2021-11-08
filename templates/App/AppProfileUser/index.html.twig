@@ -1,0 +1,110 @@
+{% extends 'Template/base.html.twig' %}
+{% block stylesheets %}
+
+{% endblock %}
+{% set icon = '<em class="fal fa-user-cog mr-2"></em>' %}
+{% set title = 'Mi Perfil'  %}
+{% block title %}{{ title|raw }}{% endblock %}
+{% block body %}
+    <!--begin::Subheader-->
+    <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
+        <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+            <!--begin::Info-->
+            <div class="d-flex align-items-center flex-wrap mr-2">
+                <!--begin::Page Title-->
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">{{ icon|raw }}{{ title|raw }}</h5>
+                <!--end::Page Title-->
+                <!--begin::Actions-->
+                <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
+                <!--end::Actions-->
+            </div>
+            <!--end::Info-->
+        </div>
+    </div>
+    <!--end::Subheader-->
+    <!--begin::Entry-->
+    <div class="d-flex flex-column-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-custom gutter-b">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <h3 class="card-label">{{ icon|raw }}{{ title|raw }}</h3>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            {{ form_start(form) }}
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        <div class="col-sm-12 mt-3">
+                                            <h2 class="pt-2 pr-2 pl-2 pb-2">Datos personales</h2>
+                                        </div>
+                                        <div class="col-md-12 mt-3">
+                                            {{ form_row(form.image) }}
+                                            {% if appUser.image %}
+                                                <script type="text/javascript">
+                                                    $(function() {
+                                                        var img = '{{ appUser.image }}';
+                                                        var idImg = '{{ form.image.vars.id  }}_image';
+                                                        $('img#'+idImg).attr('src','{{ absolute_url(asset('App/File/User/')) }}'+img)
+                                                    });
+                                                </script>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-md-6 mt-4">
+                                            {{ form_row(form.name) }}
+                                        </div>
+                                        <div class="col-md-6 mt-4">
+                                            {{ form_row(form.surname) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="row">
+                                                <div class="col-sm-12 mt-3">
+                                                    <h2 class="pt-2 pr-2 pl-2 pb-2">Datos del usuario</h2>
+                                                </div>
+                                                <div class="col-md-12 mt-3">
+                                                    {{ form_row(form.email) }}
+                                                </div>
+                                                <div class="col-md-6 mt-3">
+                                                    {{ form_row(form.pass.first) }}
+                                                </div>
+                                                <div class="col-md-6 mt-3">
+                                                    {{ form_row(form.pass.second) }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mt-5 col-sm-12 text-right">
+                                    <div class="btn-group btn-group-sm">
+                                        {{ form_widget(form.save) }}
+                                    </div>
+                                </div>
+                            </div>
+                            {{ form_widget(form) }}
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end::Entry-->
+{% endblock %}
+{% block script %}
+    <script type="text/javascript">
+        $(function() {
+            var gf = new generalFunctions();
+            gf.formEventProloader();
+            {{ include('Template/Base/notifications.js.twig') }}
+        });
+    </script>
+{% endblock %}

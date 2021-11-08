@@ -1,0 +1,57 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+parameters:
+    avatar_directory: '%kernel.project_dir%/public/App/Image/Avatar'
+    user_directory: '%kernel.project_dir%/public/App/File/User'
+    logo_directory: '%kernel.project_dir%/public/App/Image/Logo'
+
+    #Parametros de la web
+    appTitle: 'Nexus'
+    appName: '%appTitle%'
+    appCreator: 'Cloud Base'
+    appCreatorUrl: 'https://cloudbaselatam.com'
+    appFooter: '&copy; 2021 - //date// %appName%, creado por <a class="ml-1" target="_blank" href="%appCreatorUrl%"> %appCreator% </a>'
+
+    #Imagenes de la web
+    appLogo: 'App/Image/Logo/Logo_nexus_b.png'
+    appLogoLogin: 'App/Image/Logo/Logo_nexus_b.png'
+    appLogoEmail: 'App/Image/Logo/Logo_nexus_c.png'
+
+    client_id: "%env(AUTH0_CLIENT_ID)%"
+    base_url: "https://%env(AUTH0_DOMAIN)%"
+
+    #Config Email
+    email: 'notifications@colegios.cloudbaselatam.com'
+    emailName: 'Notificaciones %appTitle%'
+
+services:
+    Symfony\Bridge\Doctrine\Security\RememberMe\DoctrineTokenProvider: ~
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+            - '../src/Tests/'
+
+    App\Services\App\FileUploader:
+        autowire: true
+        arguments:
+            $targetDirectory: '%user_directory%'
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+    Qipsius\TCPDFBundle\Controller\TCPDFController: '@qipsius.tcpdf'
+
+    app.oauth_aware.user_provider.service:
+        class: App\Security\OAuthProvider

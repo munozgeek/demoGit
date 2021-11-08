@@ -1,0 +1,75 @@
+{% extends 'Template/base.html.twig' %}
+{% block stylesheets %}
+
+{% endblock %}
+{% if is_new %}
+    {% set action = 'Nuevo ' %}
+{% else %}
+    {% set action = 'Modificar ' %}
+{% endif %}
+{% set icon = '<em class="fal fa-user-plus mr-2"></em>' %}
+{% set title = action~'Usuario'  %}
+{% block title %}{{ title }}{% endblock %}
+{% block body %}
+    <!--begin::Subheader-->
+    <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
+        <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+            <!--begin::Info-->
+            <div class="d-flex align-items-center flex-wrap mr-2">
+                <!--begin::Page Title-->
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">{{ icon|raw }}{{ title|raw }}</h5>
+                <!--end::Page Title-->
+                <!--begin::Actions-->
+                <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
+                <!--end::Actions-->
+            </div>
+            <!--end::Info-->
+
+            <!--begin::Toolbar-->
+            <div class="d-flex align-items-center">
+                <!--end::Daterange-->
+                <a href="{{ path('app_user_index') }}" id="returnList" class="btn btn-light-primary font-weight-bolder btn-sm">
+                    <em class="fad fa-arrow-alt-from-right mr-1"></em>
+                    <span>VOLVER</span>
+                </a>
+            </div>
+            <!--end::Toolbar-->
+
+        </div>
+    </div>
+    <!--end::Subheader-->
+    <!--begin::Entry-->
+    <div class="d-flex flex-column-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-custom gutter-b">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <h3 class="card-label">{{ icon|raw }}{{ title|raw }}</h3>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            {% if is_new %}
+                                {{ include('App/AppUser/_form.html.twig', {'saveAddOther': true}) }}
+                            {% else %}
+                                {{ include('App/AppUser/_form.html.twig', {'saveAddOther': false}) }}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end::Entry-->
+{% endblock %}
+{% block script %}
+    <script type="text/javascript">
+        $(function() {
+            var gf = new generalFunctions();
+            gf.formEventProloader();
+            //$(".select2-placeholder").select2();
+            {{ include('Template/Base/notifications.js.twig') }}
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,63 @@
+security:
+    enable_authenticator_manager: false
+    password_hashers:
+        App\Entity\App\AppUser:
+            algorithm: auto
+
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    providers:
+        users:
+            entity:
+                class: 'App\Entity\App\AppUser'
+                property: 'email'
+        oauth_hwi:
+            id: app.oauth_aware.user_provider.service
+    firewalls:
+        main:
+            anonymous: ~
+            pattern:   ^/*
+            provider: users
+            logout:
+                path:   security_logout
+                target: security_login
+            guard:
+                authenticators:
+                    - App\Security\LoginFormAuthenticator
+            #guard:
+            #custom_authenticators:
+            #    - App\Security\CustomAuthenticator
+            entry_point: App\Security\AuthenticationEntryPoint
+            access_denied_handler: App\Security\AccessDeniedHandler
+            oauth:
+                resource_owners:
+                    auth0: "/auth0/callback"
+                login_path: /login
+                failure_path: /login
+                default_target_path: /
+                oauth_user_provider:
+                    service: app.oauth_aware.user_provider.service
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 604800 # 1 week in seconds
+                path: /
+                token_provider: 'Symfony\Bridge\Doctrine\Security\RememberMe\DoctrineTokenProvider'
+            switch_user: true
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+        # Data inicial
+        - { path: ^/data_inicial/menu, roles: PUBLIC_ACCESS , requires_channel: https }
+        - { path: ^/data_inicial/profile, roles: PUBLIC_ACCESS , requires_channel: https }
+        - { path: ^/data_inicial/users, roles: PUBLIC_ACCESS , requires_channel: https }
+        # Login
+        - { path: ^/login, roles: PUBLIC_ACCESS, requires_channel: https }
+        - { path: ^/forgotPassword, roles: PUBLIC_ACCESS, requires_channel: https }
+        - { path: ^/restorePassword, roles: PUBLIC_ACCESS, requires_channel: https }
+        - { path: ^/logout, roles: PUBLIC_ACCESS, requires_channel: https }
+        - { path: ^/connect/auth0, roles: PUBLIC_ACCESS, requires_channel: https }
+        - { path: ^/auth0/callback, roles: PUBLIC_ACCESS, requires_channel: https }
+        - { path: ^/auth0/logout, roles: PUBLIC_ACCESS, requires_channel: https }
+
+        # sistema
+        - { path: ^/, roles: ROLE_LOGIN_TRUE, requires_channel: https }

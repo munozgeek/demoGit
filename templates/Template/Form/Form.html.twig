@@ -1,0 +1,320 @@
+{% use "bootstrap_base_layout.html.twig" %}
+
+{% block attributes -%}
+    {%- for attrname, attrvalue in attr -%}
+        {{- " " -}}
+        {%- if attrname in ['placeholder', 'title'] -%}
+            {{- attrname }}="{{ translation_domain is same as(false) ? attrvalue : attrvalue|trans(attr_translation_parameters, translation_domain) }}"
+        {%- elseif attrname in ['icon', 'measure', 'weight', 'avatar'] -%}
+        {%- elseif attrvalue is same as(true) -%}
+            {{- attrname }}="{{ attrname }}"
+        {%- elseif attrvalue is not same as(false) -%}
+            {{- attrname }}="{{ attrvalue }}"
+        {%- endif -%}
+    {%- endfor -%}
+{%- endblock attributes -%}
+
+{% block icon -%}
+    {%- for attrname, attrvalue in attr -%}
+        {%- if attrname in ['icon'] -%}
+            {{ attrvalue }}
+        {%- endif -%}
+    {%- endfor -%}
+{%- endblock icon -%}
+
+{% block texareaSimple -%}
+    {%- for attrname, attrvalue in attr -%}
+        {%- if attrname in ['texareaSimple'] -%}
+            {{ attrvalue }}
+        {%- endif -%}
+    {%- endfor -%}
+{%- endblock texareaSimple -%}
+
+{% block measure -%}
+    {%- for attrname, attrvalue in attr -%}
+        {%- if attrname in ['measure'] -%}
+            {{ attrvalue }}
+        {%- endif -%}
+    {%- endfor -%}
+{%- endblock measure -%}
+
+{% block weight -%}
+    {%- for attrname, attrvalue in attr -%}
+        {%- if attrname in ['weight'] -%}
+            {{ attrvalue }}
+        {%- endif -%}
+    {%- endfor -%}
+{%- endblock weight -%}
+
+{% block avatar -%}
+    {%- for attrname, attrvalue in attr -%}
+        {%- if attrname in ['avatar'] -%}
+            {{ attrvalue }}
+        {%- endif -%}
+    {%- endfor -%}
+{%- endblock avatar -%}
+
+{%- block form_widget_simple -%}
+    {%- set type = type|default('text') -%}
+
+    {% if type != 'hidden' and type != 'file' %}
+        <div class="input-group input-group-lg bg-white shadow-inset-2">
+            <div class="input-group-prepend">
+                <span class="input-group-text bg-transparent border-right-0 py-1 px-3">
+                    <span class="icon-stack fs-xxl">
+                        <i class="base-7 icon-stack-3x color-primary-500"></i>
+                        <i class="icon-stack-1x text-white {% if block('icon') %}{{ block('icon') }}{% endif %}"
+                        ></i>
+                    </span>
+                </span>
+            </div>
+            <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}>
+        </div>
+    {% elseif type == 'hidden' %}
+        <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+    {% else %}
+        <div class="custom-file">
+            <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}>
+            <label class="custom-file-label" for="{{ id }}" style="z-index: 2;">Buscar Imagen</label>
+        </div>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $("#{{ id }}").on("change", function() {
+                    var imagen = $(this).parent('div').parent('div').parent('div').find('img#{{ id }}_imagen');
+                    //var texto = $(this).parent('div').find('input[type=text]');
+
+                    var files = !!this.files ? this.files : [];
+                    var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg)$/;
+                    if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
+
+                    $(imagen).show();
+
+                    if (regex.test( files[0].type)){ // only image file
+                        var reader = new FileReader(); // instance of the FileReader
+                        reader.readAsDataURL(files[0]); // read the local file
+                        reader.onload = function(){ // set image data as background of div
+                            $(imagen).attr("src", this.result);
+                            //texto.val($('#{{ id }}').val());
+                            //$("#imageUploadForm").css("background-image", "url("+this.result+")");
+                            //$('#error').text(''); // Empty the error message
+                        }
+                    } else {
+                        alert(files[0].name + " no es una imagen.");
+                        return false;
+                    }
+                });
+            });
+        </script>
+    {% endif %}
+{%- endblock form_widget_simple -%}
+
+{%- block textarea_widget -%}
+    {% if block('texareaSimple') %}
+        <div class="input-group input-group-lg bg-white shadow-inset-2">
+            <textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
+        </div>
+    {% else %}
+        <div class="input-group input-group-lg bg-white shadow-inset-2">
+            <div class="input-group-prepend">
+            <span class="input-group-text bg-transparent border-right-0 py-1 px-3">
+                <span class="icon-stack fs-xxl">
+                    <i class="base-7 icon-stack-3x color-primary-500"></i>
+                    <i class="icon-stack-1x text-white {% if block('icon') %}{{ block('icon') }}{% endif %}"></i>
+                </span>
+            </span>
+            </div>
+            <textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
+        </div>
+    {% endif %}
+
+{%- endblock textarea_widget -%}
+
+{%- block choice_widget_collapsed -%}
+    {%- if required and placeholder is none and not placeholder_in_choices and not multiple and (attr.size is not defined or attr.size <= 1) -%}
+        {% set required = false %}
+    {%- endif -%}
+    <div class="input-group input-group-lg bg-white shadow-inset-2">
+        <select {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %}>
+            {%- if placeholder is not none -%}
+                <option value=""{% if required and value is empty %} selected="selected"{% endif %}>{{ placeholder != '' ? (translation_domain is same as(false) ? placeholder : placeholder|trans({}, translation_domain)) }}</option>
+            {%- endif -%}
+            {%- if preferred_choices|length > 0 -%}
+                {% set options = preferred_choices %}
+                {{- block('choice_widget_options') -}}
+                {%- if choices|length > 0 and separator is not none -%}
+                    <option disabled="disabled">{{ separator }}</option>
+                {%- endif -%}
+            {%- endif -%}
+            {%- set options = choices -%}
+            {{- block('choice_widget_options') -}}
+        </select>
+    </div>
+{%- endblock choice_widget_collapsed -%}
+
+{% block checkbox_widget -%}
+    {%- set parent_label_class = parent_label_class|default(label_attr.class|default('')) -%}
+    {% if 'checkbox-inline' in parent_label_class %}
+        {{- form_label(form, null, { widget: parent() }) -}}
+    {% else -%}
+        <div class="custom-control col-md-12 custom-checkbox custom-control-inline">
+            {{- form_label(form, null, { widget: parent() }) -}}
+        </div>
+    {%- endif -%}
+{%- endblock checkbox_widget %}
+
+{% block radio_widget -%}
+    {%- set parent_label_class = parent_label_class|default(label_attr.class|default('')) -%}
+    {%- if 'radio-inline' in parent_label_class -%}
+        {{- form_label(form, null, { widget: parent() }) -}}
+    {%- else -%}
+        <div class="custom-control col-md-12 custom-radio custom-control-inline">
+            {{- form_label(form, null, { widget: parent() }) -}}
+        </div>
+    {%- endif -%}
+{%- endblock radio_widget %}
+
+{# Labels #}
+
+{%- block form_label -%}
+    {% if label is not same as(false) -%}
+        {% if not compound -%}
+            {% set label_attr = label_attr|merge({'for': id}) %}
+        {%- endif -%}
+        {% if required -%}
+            {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+        {%- endif -%}
+        {% if label is empty -%}
+            {%- if label_format is not empty -%}
+                {% set label = label_format|replace({
+                    '%name%': name,
+                    '%id%': id,
+                }) %}
+            {%- else -%}
+                {% set label = name|humanize %}
+            {%- endif -%}
+        {%- endif -%}
+        <{{ element|default('label') }}{% if label_attr %}{% with { attr: label_attr } %}{{ block('attributes') }}{% endwith %}{% endif %}>{{ translation_domain is same as(false) ? label|raw : label|trans({}, translation_domain)|raw }} {% if required %}<b style="color: red">*</b>{% endif %}</{{ element|default('label') }}>
+    {%- endif -%}
+{%- endblock form_label -%}
+
+{% block checkbox_label -%}
+    {%- set label_attr = label_attr|merge({'for': id}) -%}
+    {{- block('checkbox_radio_label') -}}
+{%- endblock checkbox_label %}
+
+{% block radio_label -%}
+    {%- set label_attr = label_attr|merge({'for': id}) -%}
+
+    {{- block('checkbox_radio_label') -}}
+{%- endblock radio_label %}
+
+{% block checkbox_radio_label -%}
+    {# Do not display the label if widget is not defined in order to prevent double label rendering #}
+    {%- if widget is defined -%}
+        {%- if required -%}
+            {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' required')|trim}) -%}
+        {%- endif -%}
+        {%- if parent_label_class is defined -%}
+            {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' ' ~ parent_label_class)|trim}) -%}
+        {%- endif -%}
+        {%- if label is not same as(false) and label is empty -%}
+            {%- if label_format is not empty -%}
+                {%- set label = label_format|replace({
+                    '%name%': name,
+                    '%id%': id,
+                }) -%}
+            {%- else -%}
+                {% set label = name|humanize %}
+            {%- endif -%}
+        {%- endif -%}
+        {{- widget|raw }}
+        <label class="custom-control-label" for="{{ id }}">{{ label is not same as(false) ? (translation_domain is same as(false) ? label : label|trans({}, translation_domain)) -}}</label>
+
+    {%- endif -%}
+{%- endblock checkbox_radio_label %}
+
+{%- block button_widget -%}
+    {%- if label is empty -%}
+        {%- if label_format is not empty -%}
+            {% set label = label_format|replace({
+                '%name%': name,
+                '%id%': id,
+            }) %}
+        {%- elseif label is same as(false) -%}
+            {% set translation_domain = false %}
+        {%- else -%}
+            {% set label = name|humanize %}
+        {%- endif -%}
+    {%- endif -%}
+    <button type="{{ type|default('button') }}" {{ block('button_attributes') }}>{{ translation_domain is same as(false) ? label|raw : label|trans({}, translation_domain)|raw }}</button>
+{%- endblock button_widget -%}
+
+{%- block form_row -%}
+    <div class="form-group">
+        {{- form_label(form) -}}
+        {{- form_widget(form) -}}
+        {{- form_errors(form) -}}
+    </div>
+{%- endblock form_row -%}
+
+{% block checkbox_row -%}
+    <div class="form-group {% if not valid %}has-error{% endif %}">
+        {{- form_widget(form) -}}
+        {{- form_errors(form) -}}
+    </div>
+{%- endblock checkbox_row %}
+
+{% block radio_row -%}
+    <div class="form-group {% if not valid %}has-error{% endif %}">
+        {{- form_widget(form) -}}
+        {{- form_errors(form) -}}
+    </div>
+{%- endblock radio_row %}
+
+{% block file_image -%}
+    <div class="text-center">
+        <img id="{{ id }}_image" style="height: 150px;width: 150px" src="{{ absolute_url(asset('App/Image/Avatar/'~block('avatar'))) }}"/>
+        {% if block('measure') or block('weight') %}
+            <a href="javascript:void(0);" class="btn btn-dark btn-xs btn-icon rounded-circle waves-effect waves-themed"
+               style="margin-bottom: -123px;margin-left: -25px;"
+               data-toggle="popover" data-trigger="hover" data-placement="top" title=""
+               data-original-title="Recomendaciones" data-html="true"
+               data-content="<table class='table'>
+                    {% if block('measure') %}
+                    <tr>
+                        <th>Medidas</th>
+                        <td>{{ block('measure') }}</td>
+                    </tr>
+                    {% endif %}
+                    {% if block('weight') %}
+                    <tr>
+                        <th>Peso</th>
+                        <td>{{ block('weight') }}</td>
+                    </tr>
+                    {% endif %}
+                </table>"
+            >
+                <i class="fad fa-question"></i>
+            </a>
+        {% endif %}
+    </div>
+{% endblock file_image %}
+
+{% block file_row -%}
+    <div class="form-group mb-0">
+        {{- form_label(form) -}}
+        {{- block('file_image') -}}
+        {{- form_widget(form) -}}
+        {{- form_errors(form) -}}
+    </div>
+{%- endblock file_row %}
+
+{%- block form_errors -%}
+    {%- if errors|length > 0 -%}
+        <div class="alert alert-danger">
+            {%- for error in errors -%}
+                <strong>{{ error.message }}</strong>
+            {%- endfor -%}
+        </div>
+    {%- endif -%}
+{%- endblock form_errors -%}

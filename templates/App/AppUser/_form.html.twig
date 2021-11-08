@@ -1,0 +1,65 @@
+{{ form_start(form) }}
+<div class="row">
+    <div class="col-sm-6">
+        <div class="row">
+            <div class="col-sm-12 mt-3">
+                <h2 class="pt-2 pr-2 pl-2 pb-2">Datos personales</h2>
+            </div>
+            <div class="col-md-12 mt-3">
+                {{ form_row(form.image) }}
+                {% if appUser.image %}
+                    <script type="text/javascript">
+                        $(function() {
+                            var img = '{{ appUser.image }}';
+                            var idImg = '{{ form.image.vars.id  }}_image';
+                            $('img#'+idImg).attr('src','{{ absolute_url(asset('App/File/User/')) }}'+img)
+                        });
+                    </script>
+                {% endif %}
+            </div>
+            <div class="col-md-6 mt-4">
+                {{ form_row(form.name) }}
+            </div>
+            <div class="col-md-6 mt-4">
+                {{ form_row(form.surname) }}
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="row">
+            <div class="col-sm-12 mt-3">
+                <h2 class="pt-2 pr-2 pl-2 pb-2">Datos del usuario</h2>
+            </div>
+            <div class="col-md-12 mt-3">
+                {{ form_row(form.appProfile) }}
+            </div>
+            <div class="col-md-12 mt-3">
+                {{ form_row(form.email) }}
+            </div>
+            <div class="col-md-12 mt-3">
+                {{ form_row(form.flagStatus) }}
+            </div>
+            <div class="col-md-12 mt-3 text-center">
+                <br>
+                {{ form_row(form.flagAccess) }}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="mt-3 col-sm-12 text-right">
+        <div class="btn-group btn-group-sm">
+            {{ form_widget(form.cancel) }}
+            {% if saveAddOther %}
+                {{ form_widget(form.saveAddOther) }}
+            {% else %}
+                <div style="display: none">
+                    {{ form_widget(form.saveAddOther) }}
+                </div>
+            {% endif %}
+            {{ form_widget(form.save) }}
+        </div>
+    </div>
+</div>
+{{ form_widget(form) }}
+{{ form_end(form) }}

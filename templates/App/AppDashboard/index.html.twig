@@ -1,0 +1,55 @@
+{% extends 'Template/base.html.twig' %}
+{% block stylesheets %}
+
+{% endblock %}
+{% set icon = '<em class="fad fa-user-chart mr-2"></em>' %}
+{% set title = 'Dashboard'  %}
+{% block title %}{{ title|raw }}{% endblock %}
+{% block body %}
+    <!--begin::Subheader-->
+    <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
+        <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+            <!--begin::Info-->
+            <div class="d-flex align-items-center flex-wrap mr-2">
+                <!--begin::Page Title-->
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">{{ icon|raw }}{{ title|raw }}</h5>
+                <!--end::Page Title-->
+                <!--begin::Actions-->
+                <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
+                <!--end::Actions-->
+            </div>
+            <!--end::Info-->
+
+            <!--begin::Toolbar-->
+            <div class="d-flex align-items-center">
+
+            </div>
+            <!--end::Toolbar-->
+
+        </div>
+    </div>
+    <!--end::Subheader-->
+    <!--begin::Entry-->
+    <div class="d-flex flex-column-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-custom gutter-b">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <h3 class="card-label">{{ icon|raw }}{{ title|raw }}</h3>
+                            </div>
+                        </div>
+                        <div class="card-body">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end::Entry-->
+{% endblock %}
+{% block script %}
+
+{% endblock %}

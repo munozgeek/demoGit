@@ -1,0 +1,12 @@
+<div class="btn-group">
+    {%  if app.session.get('edit') %}
+    <button class="btn btn-sm btn-clean btn-icon-primary edit" title="Editar" token="{{ csrf_token('edit' ~ row.id) }}" idRegister="{{ row.id }}">
+        <i class="fad fa-edit"></i>
+    </button>
+    {% endif %}
+    {% if app.session.get('delete') %}
+    <button class="btn btn-sm btn-clean btn-icon-danger delete" title="Eliminar" token="{{ csrf_token('delete' ~ row.id) }}" idRegister="{{ row.id }}">
+        <i class="fad fa-trash-alt"></i>
+    </button>
+    {% endif %}
+</div>

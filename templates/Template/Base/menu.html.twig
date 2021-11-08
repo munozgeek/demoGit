@@ -1,0 +1,114 @@
+<!--begin::Menu Nav-->
+<ul class="menu-nav">
+    <li class="menu-section">
+        <h4 class="menu-text">Menú</h4>
+        <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
+    </li>
+    {% for i in getMenuUser() %}
+        {% if i.submodule %}
+            <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                <a href="javascript:;" class="menu-link menu-toggle">
+                    <span class="menu-icon">
+                        <em class="{{i.icon}}"></em>
+                    </span>
+                    <span class="menu-text">{{i.name}}</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="menu-submenu">
+                    <i class="menu-arrow"></i>
+                    <ul class="menu-subnav">
+                        <li class="menu-item menu-item-parent" aria-haspopup="true">
+                            <span class="menu-link">
+                                <span class="menu-text">{{i.name}}</span>
+                            </span>
+                        </li>
+                        {% for ii in i.submodule %}
+                            {% if ii.submodule %}
+                                <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                                    <a href="javascript:;" class="menu-link menu-toggle">
+                                        <span class="menu-icon">
+                                            <em class="{{ii.icon}}"></em>
+                                        </span>
+                                        <span class="menu-text">{{ii.name}}</span>
+                                        <i class="menu-arrow"></i>
+                                    </a>
+                                    <div class="menu-submenu">
+                                        <i class="menu-arrow"></i>
+                                        <ul class="menu-subnav">
+                                            <li class="menu-item menu-item-parent" aria-haspopup="true">
+                                                <span class="menu-link">
+                                                    <span class="menu-text">{{ii.name}}</span>
+                                                </span>
+                                            </li>
+                                            {% for iii in ii.submodule %}
+                                                {% if iii.submodule %}
+                                                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                                                        <a href="javascript:;" class="menu-link menu-toggle">
+                                                            <span class="menu-icon">
+                                                                <em class="{{iii.icon}}"></em>
+                                                            </span>
+                                                            <span class="menu-text">{{iii.name}}</span>
+                                                            <i class="menu-arrow"></i>
+                                                        </a>
+                                                        <div class="menu-submenu">
+                                                            <i class="menu-arrow"></i>
+                                                            <ul class="menu-subnav">
+                                                                <li class="menu-item menu-item-parent" aria-haspopup="true">
+                                                                    <span class="menu-link">
+                                                                        <span class="menu-text">{{iii.name}}</span>
+                                                                    </span>
+                                                                </li>
+                                                                {% for iv in iii.submodule %}
+                                                                    <li class="menu-item" aria-haspopup="true">
+                                                                        <a href="{{iv.route}}" class="menu-link">
+                                                                            <span class="menu-icon">
+                                                                                <em class="{{iv.icon}}"></em>
+                                                                            </span>
+                                                                            <span class="menu-text">{{iv.name}}</span>
+                                                                        </a>
+                                                                    </li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                        </div>
+                                                    </li>
+                                                {% else %}
+                                                    <li class="menu-item" aria-haspopup="true">
+                                                        <a href="{{iii.route}}" class="menu-link">
+                                                            <span class="menu-icon">
+                                                                <em class="{{iii.icon}}"></em>
+                                                            </span>
+                                                            <span class="menu-text">{{iii.name}}</span>
+                                                        </a>
+                                                    </li>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </li>
+                            {% else %}
+                                <li class="menu-item" aria-haspopup="true">
+                                    <a href="{{ii.route}}" class="menu-link">
+                                        <span class="menu-icon">
+                                            <em class="{{ii.icon}}"></em>
+                                        </span>
+                                        <span class="menu-text">{{ii.name}}</span>
+                                    </a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </li>
+        {% else %}
+            <li class="menu-item" aria-haspopup="true">
+                <a href="{{i.route}}" class="menu-link">
+                    <span class="menu-icon">
+                        <em class="{{i.icon}}"></em>
+                    </span>
+                    <span class="menu-text">{{i.name}}</span>
+                </a>
+            </li>
+        {% endif %}
+    {% endfor %}
+</ul>
+<!--end::Menu Nav-->

@@ -1,0 +1,46 @@
+# Read the documentation: https://symfony.com/doc/current/bundles/FOSCKEditorBundle/index.html
+fos_ck_editor:
+    jquery: true
+    configs:
+        default:
+            #skin: 'office2013'
+            language: es
+            toolbar: full
+            uiColor:                "#ffffff"
+            filebrowserBrowseRoute: elfinder
+            filebrowserBrowseRouteParameters: []
+        #         extraPlugins: "templates"
+        #         templates: "my_templates"
+
+        basic:
+            #skin: 'office2013'
+            language: es
+            toolbar: basic
+            uiColor:                "#ffffff"
+            filebrowserBrowseRoute: elfinder
+            filebrowserBrowseRouteParameters: []
+
+        standard:
+            #skin: 'office2013'
+            language: es
+            toolbar: standard
+            uiColor: "#ffffff"
+            filebrowserBrowseRoute: elfinder
+            filebrowserBrowseRouteParameters: [ ]
+    #templates:
+    #    my_templates:
+    #        imagesPath: "/bundles/plugins/templates/templates/images"
+    #        templates:
+    #            -
+    #                title:       "My Template"
+    #                image:       "image.jpg"
+    #                description: "My awesome template"
+    #                html:        "<p>Crazy template :)</p>"
+    #            -
+    #                title:       "My Template 2"
+    #                image:       "image.jpg"
+    #                description: "My awesome template"
+    #                html:        "<p>Crazy template :)</p>"
+twig:
+    form_themes:
+        - '@FOSCKEditor/Form/ckeditor_widget.html.twig'

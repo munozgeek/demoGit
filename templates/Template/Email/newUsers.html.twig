@@ -1,0 +1,102 @@
+{% extends 'Template/Email/base.html.twig' %}
+
+{% block typeEmail %}
+    <b>{{ action }}</b>
+{% endblock %}
+
+{% block body %}
+    <table class="container content dark-theme">
+        <tr>
+            <td>
+                <!-- begin row -->
+                <table class="row">
+                    <tr>
+                        <!-- begin wrapper -->
+                        <td class="wrapper">
+                            <table class="twelve columns">
+                                <tr>
+                                    <td class="last">
+                                        <h4>Estimado {{ appUser.name }} {{ appUser.surname }};</h4>
+                                        <p class="m-b-5">
+                                            {% if changePassword %}
+                                                Se restablecio los datos de acceso nuestra plataforma.
+                                                Para acceder puedes hacerlo desde la dirección:
+                                            {% else %}
+                                                Te damos la bienvenida a nuestra plataforma.
+                                                Para acceder puedes hacerlo desde la dirección:
+                                            {% endif %}
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="panel">
+                                        <a href="{{ absolute_url(path('security_login')) }}">{{ absolute_url(path('security_login')) }}</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p class="m-t-15 last">Si hacer clic en la URL anterior no funciona, copie y pegue la URL en una ventana del navegador.</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="last">
+                                        <h5>
+                                            {% if changePassword %}
+                                                Tus nuevos datos de acceso son:
+                                            {% else %}
+                                                Tus datos de acceso son:
+                                            {% endif %}
+                                        </h5>
+                                        <p class="m-b-5">
+                                            Con la siguientes información puedes accesar a {{ parameter('appName') }}
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="panel">
+                                        <b class="textWhite">Usuario:</b> <a href="javascript:void(0)">{{ appUser.email }}</a> <br>
+                                        <b class="textWhite">Contraseña:</b> <a href="javascript:void(0)">{{ password }}</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p class="m-t-15 last">¡Que tengas una excelente jornada!</p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <!-- end wrapper -->
+                    </tr>
+                </table>
+                <!-- end row -->
+                <!-- begin divider -->
+                <table class="divider"></table>
+                <!-- end divider -->
+                <!-- begin row -->
+                <table class="row">
+                    <tr>
+                        <!-- begin wrapper -->
+                        <td class="wrapper">
+                            <!-- begin twelve columns -->
+                            <table class="twelve columns">
+                                <tr>
+                                    <td>
+                                        <p>
+                                            ¡Agregue <a href="mailto:{{ parameter('email') }}">{{ parameter('email') }}</a> a sus contactos!
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                            <!-- end twelve columns -->
+                            <p>
+                                <i>Este es un correo electrónico generado por el sistema y no se requiere respuesta.</i>
+                            </p>
+                        </td>
+                        <!-- end wrapper -->
+                    </tr>
+                </table>
+                <!-- end row -->
+            </td>
+        </tr>
+    </table>
+{% endblock %}

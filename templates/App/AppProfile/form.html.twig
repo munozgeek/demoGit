@@ -1,0 +1,109 @@
+{% extends 'Template/base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" media="screen, print" href="{{ absolute_url(asset('App/Plugins/nestable/nestable.css')) }}">
+{% endblock %}
+
+{% if is_new %}
+    {% set action = 'Nuevo ' %}
+{% else %}
+    {% set action = 'Modificar ' %}
+{% endif %}
+{% set icon = '<em class="fal fa-user-plus mr-2"></em>' %}
+{% set title = action~'Perfil de usuario'  %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+    <!--begin::Subheader-->
+    <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
+        <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+            <!--begin::Info-->
+            <div class="d-flex align-items-center flex-wrap mr-2">
+                <!--begin::Page Title-->
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">{{ icon|raw }}{{ title|raw }}</h5>
+                <!--end::Page Title-->
+                <!--begin::Actions-->
+                <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
+                <!--end::Actions-->
+            </div>
+            <!--end::Info-->
+
+            <!--begin::Toolbar-->
+            <div class="d-flex align-items-center">
+                <!--end::Daterange-->
+                <a href="{{ path('app_profile_index') }}" id="returnList" class="btn btn-light-primary font-weight-bolder btn-sm">
+                    <em class="fad fa-arrow-alt-from-right mr-1"></em>
+                    <span>VOLVER</span>
+                </a>
+            </div>
+            <!--end::Toolbar-->
+
+        </div>
+    </div>
+    <!--end::Subheader-->
+    <!--begin::Entry-->
+    <div class="d-flex flex-column-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-custom gutter-b">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <h3 class="card-label">{{ icon|raw }}{{ title|raw }}</h3>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            {% if is_new %}
+                                {{ include('App/AppProfile/_form.html.twig', {'saveAddOther': true}) }}
+                            {% else %}
+                                {{ include('App/AppProfile/_form.html.twig', {'saveAddOther': false}) }}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end::Entry-->
+{% endblock %}
+{% block script %}
+    <script src="{{ absolute_url(asset('App/Plugins/nestable/nestable.js')) }}"></script>
+    <script type="text/javascript">
+        $(function() {
+            var gf = new generalFunctions();
+            gf.formEventProloader();
+            //$(".select2-placeholder").select2();
+            {{ include('Template/Base/notifications.js.twig') }}
+            $('#accionMenu').nestable({
+                group : 'accionMenu',
+                maxDepth: 0,
+                noDragClass:'dd-nodrag'
+            });
+            $('#menu').nestable({
+                group : 'profileMenu'
+            });
+            $('#profile').nestable({
+                group : 'profileMenu'
+            });
+
+            $('.selectAllAction').click(function () {
+                var checkBox = $(this).parent('span').parent('div').parent('li').find('.checkInput');
+                $.each(checkBox,function () {
+                    $(this).attr('checked', 'checked');
+                });
+            });
+            $('.deselectAllAction').click(function () {
+                var checkBox = $(this).parent('span').parent('div').parent('li').find('.checkInput');
+                $.each(checkBox,function () {
+                    $(this).removeAttr('checked');
+                });
+            });
+
+            $('#form').submit(function(event) {
+                $('#form_profile').val(window.JSON.stringify($('#profile').nestable('serialize')));
+                event.preventDefault(); //this will prevent the default submit
+                $(this).unbind('submit').submit(); // continue the submit unbind preventDefault
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,22 @@
+$('#{{ idAction }}').change(function () {
+    var id = $(this).val();
+    if(id !== ''){
+        $.post('{{ url }}',{ id : id },function(r){
+            $('#{{ idActionTo }} option').each(function() {
+                if ( $(this).val() != '' ) {
+                    $(this).remove();
+                }
+            });
+            $.each(r, function( i, v ) {
+                $('#{{ idActionTo }}').append('<option value="' + v['id'] + '">' + v['name'] + '</option>');
+            });
+            $('#{{ idActionTo }}').trigger('change');
+        },'json');
+    } else {
+        $('#{{ idActionTo }} option').each(function() {
+            if ( $(this).val() != '' ) {
+                $(this).remove();
+            }
+        });
+    }
+});

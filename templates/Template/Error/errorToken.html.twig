@@ -1,0 +1,58 @@
+{% extends 'Template/base.html.twig' %}
+
+{% block title %}Ingreso no Valido{% endblock %}
+
+{% block body %}
+    <ol class="breadcrumb page-breadcrumb">
+        <li class="breadcrumb-item"><a href="javascript:void(0);">BEC</a></li>
+        <li class="breadcrumb-item">INGRESO NO VALIDO</li>
+        <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
+    </ol>
+    <div class="subheader">
+        <h1 class="subheader-title">
+            <i class='subheader-icon fal fa-'></i> INGRESO <span class='fw-300'>NO VALIDO</span>
+        </h1>
+        <div class="subheader-block">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12">
+            <div id="panel-1" class="panel">
+                <div class="panel-hdr bg-info-700 bg-success-gradient">
+                    <h2>
+                        INGRESO NO <span class="fw-300"><i>VALIDO</i></span>
+                    </h2>
+                    <div class="panel-toolbar">
+                        <div class="btn-group" id="js-demo-nesting" role="group" aria-label="Button group with nested dropdown">
+                            <a href="{{ url }}" class="btn btn-icon btn-sm btn-outline-secondary mr-1 shadow-0 waves-effect waves-themed" data-toggle="tooltip" data-offset="0,10" data-original-title="Volver">
+                                <i class="fad fa-arrow-alt-from-right color-white"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <div class="alert bg-danger-600 alert-dismissible fade show">
+                            <div class="d-flex align-items-center">
+                                <div class="alert-icon width-8">
+                                    <div class='icon-stack icon-stack-xl'>
+                                        <i class="base base-8 icon-stack-3x opacity-90 color-fusion-900"></i> <i class="base base-9 icon-stack-2x opacity-90 color-danger-900"></i> <i class="fal fa-times-octagon icon-stack-1x opacity-100 color-white"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-1 pl-1">
+                                    <span class="h2">
+                                        Disculpe.
+                                    </span>
+                                    <br>
+                                    Esta ingresando de manera erronea a la aplicacion.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
