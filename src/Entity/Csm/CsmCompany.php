@@ -6,9 +6,9 @@ use App\Entity\App\AppUser;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\Csm\CsmCommentsRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\Csm\CsmCompanyRepository")
  */
-class CsmComments
+class CsmCompany
 {
     /**
      * @ORM\Id()
@@ -19,23 +19,21 @@ class CsmComments
 
     /**
      * @var string
-     * @ORM\Column(type="text", length=150, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $comment;
+    private $image;
 
     /**
-     * @var AppUser
-     * @ORM\ManyToOne(targetEntity="App\Entity\App\AppUser")
-     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
+     * @var string
+     * @ORM\Column(type="string", length=150, nullable=false)
      */
-    public $appUser;
+    private $name;
 
     /**
-     * @var CsmMeetingDetails
-     * @ORM\ManyToOne(targetEntity="App\Entity\Csm\CsmMeetingDetails", inversedBy="csmComments")
-     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
+     * @var string
+     * @ORM\Column(type="text", nullable=true)
      */
-    public $csmMeetingDetails;
+    private $address;
 
 
 }

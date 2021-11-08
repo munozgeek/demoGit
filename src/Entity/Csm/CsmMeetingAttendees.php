@@ -7,9 +7,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\Csm\CsmMeetingRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\Csm\CsmMeetingAttendeesRepository")
  */
-class CsmMeeting
+class CsmMeetingAttendees
 {
     /**
      * @ORM\Id()
@@ -19,58 +19,6 @@ class CsmMeeting
     private $id;
 
     /**
-     * @var \DateTime
-     * @ORM\Column(type="datetime", nullable=false)
-     */
-    private $dateCreation;
-
-    /**
-     * @var \DateTime
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $dateInit;
-
-    /**
-     * @var \DateTime
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $dateEnd;
-
-    /**
-     * @var string
-     * @ORM\Column(type="string", length=10, nullable=false)
-     */
-    private $code;
-
-    /**
-     * @var string
-     * @ORM\Column(type="string", length=150, nullable=false)
-     */
-    private $name;
-
-    /**
-     * @var string
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $address;
-
-    /**
-     * true = interna
-     * false= con cliente
-     * @var boolean
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $flagType;
-
-    /**
-     * true = activa
-     * false= finalizada
-     * @var boolean
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $flagStatus;
-
-    /**
      * @var AppUser
      * @ORM\ManyToOne(targetEntity="App\Entity\App\AppUser")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
@@ -78,13 +26,20 @@ class CsmMeeting
     public $appUser;
 
     /**
-     * @var Collection
-     * @ORM\ManyToMany(targetEntity="App\Entity\App\AppUser", inversedBy="csmMeeting")
+     * null = sin confirmar
+     * false= ausente
+     * true = presente
+     * @var boolean
+     * @ORM\Column(type="boolean", nullable=true)
      */
-    private $appUserMeetingAttendees;
+    private $flagAssistant;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Csm\CsmMeetingDetails", mappedBy="csmMeeting", orphanRemoval=true)
+     * @var CsmMeeting
+     * @ORM\ManyToOne(targetEntity="App\Entity\Csm\CsmMeeting", inversedBy="csmMeetingAttendees")
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
-    private $csmMeetingDetails;
+    public $csmMeeting;
+
+
 }

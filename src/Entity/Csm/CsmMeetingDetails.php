@@ -3,13 +3,12 @@
 namespace App\Entity\Csm;
 
 use App\Entity\App\AppUser;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\Csm\CsmMeetingRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\Csm\CsmMeetingDetailsRepository")
  */
-class CsmMeeting
+class CsmMeetingDetails
 {
     /**
      * @ORM\Id()
@@ -19,67 +18,89 @@ class CsmMeeting
     private $id;
 
     /**
-     * @var \DateTime
-     * @ORM\Column(type="datetime", nullable=false)
+     * 1 = tema
+     * 2 = tarea
+     * 3 = desicion
+     * 4 = informacion
+     * @ORM\Column(type="integer")
      */
-    private $dateCreation;
+    private $type;
 
     /**
-     * @var \DateTime
-     * @ORM\Column(type="datetime", nullable=true)
+     * @var CsmMeeting
+     * @ORM\ManyToOne(targetEntity="App\Entity\Csm\CsmMeeting", inversedBy="csmMeetingDetails")
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
-    private $dateInit;
+    public $csmMeeting;
 
     /**
-     * @var \DateTime
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Csm\CsmComments", mappedBy="csmMeetingDetails", orphanRemoval=true)
      */
-    private $dateEnd;
+    private $csmComments;
 
-    /**
-     * @var string
-     * @ORM\Column(type="string", length=10, nullable=false)
-     */
-    private $code;
-
-    /**
-     * @var string
-     * @ORM\Column(type="string", length=150, nullable=false)
-     */
-    private $name;
+    #######
+    ## Data Tema
+    #######
 
     /**
      * @var string
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="string", length=150, nullable=true)
      */
-    private $address;
+    private $topic;
+
+    #######
+    ## Data tarea
+    #######
 
     /**
-     * true = interna
-     * false= con cliente
-     * @var boolean
-     * @ORM\Column(type="boolean", nullable=true)
+     * @var \DateTime
+     * @ORM\Column(type="date", nullable=true)
      */
-    private $flagType;
-
-    /**
-     * true = activa
-     * false= finalizada
-     * @var boolean
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $flagStatus;
+    private $dateTask;
 
     /**
      * @var AppUser
      * @ORM\ManyToOne(targetEntity="App\Entity\App\AppUser")
-     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
      */
-    public $appUser;
+    public $appUserTask;
 
     /**
-     * @var Collection
-     * @ORM\ManyToMany(targetEntity="App\Entity\App\AppUser", inversedBy="csmMeeting")
+     * @var string
+     * @ORM\Column(type="string", length=150, nullable=true)
      */
-    private $appUserMeetingAttendees;
+    private $nameTask;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $progressTask;
+
+    #######
+    ## Data desicion
+    #######
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=150, nullable=true)
+     */
+    private $decisionToMake;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=150, nullable=true)
+     */
+    private $decisionTaken;
+
+    #######
+    ## Data informacion
+    #######
+
+    /**
+     * @var string
+     * @ORM\Column(type="text", length=150, nullable=true)
+     */
+    private $information;
+
+
 }

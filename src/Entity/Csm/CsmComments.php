@@ -6,9 +6,9 @@ use App\Entity\App\AppUser;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\Csm\CsmMeetingDetailsRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\Csm\CsmCommentsRepository")
  */
-class CsmMeetingDetails
+class CsmComments
 {
     /**
      * @ORM\Id()
@@ -16,80 +16,26 @@ class CsmMeetingDetails
      * @ORM\Column(type="integer")
      */
     private $id;
-    /**
-     * 1 = tema
-     * 2 = tarea
-     * 3 = desicion
-     * 4 = informacion
-     * @ORM\Column(type="integer")
-     */
-    private $type;
-
-    /**
-     * @var CsmMeeting
-     * @ORM\ManyToOne(targetEntity="App\Entity\Csm\CsmMeeting", inversedBy="csmMeetingDetails")
-     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
-     */
-    public $csmMeeting;
-
-    #######
-    ## Data Tema
-    #######
 
     /**
      * @var string
-     * @ORM\Column(type="string", length=150, nullable=true)
+     * @ORM\Column(type="text", length=150, nullable=true)
      */
-    private $topic;
-
-    #######
-    ## Data tarea
-    #######
-
-    /**
-     * @var \DateTime
-     * @ORM\Column(type="date", nullable=true)
-     */
-    private $dateTask;
+    private $comment;
 
     /**
      * @var AppUser
      * @ORM\ManyToOne(targetEntity="App\Entity\App\AppUser")
      * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
      */
-    public $appUserTask;
+    public $appUser;
 
     /**
-     * @var string
-     * @ORM\Column(type="string", length=150, nullable=true)
+     * @var CsmMeetingDetails
+     * @ORM\ManyToOne(targetEntity="App\Entity\Csm\CsmMeetingDetails", inversedBy="csmComments")
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
-    private $nameTask;
-
-    #######
-    ## Data desicion
-    #######
-
-    /**
-     * @var string
-     * @ORM\Column(type="string", length=150, nullable=true)
-     */
-    private $decisionToMake;
-
-    /**
-     * @var string
-     * @ORM\Column(type="string", length=150, nullable=true)
-     */
-    private $decisionTaken;
-
-    #######
-    ## Data informacion
-    #######
-
-    /**
-     * @var string
-     * @ORM\Column(type="text", length=150, nullable=true)
-     */
-    private $information;
+    public $csmMeetingDetails;
 
 
 }

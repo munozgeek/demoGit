@@ -2,7 +2,9 @@
 
 namespace App\Entity\App;
 
+use App\Entity\Csm\CsmCompany;
 use App\Entity\Utility\SecurityUser;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\LegacyPasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -31,6 +33,25 @@ class AppUser implements UserInterface, PasswordAuthenticatedUserInterface, Lega
      * @ORM\Column(type="string", length=150, nullable=false)
      */
     protected $name;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=150, nullable=true)
+     */
+    protected $cellphone;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=150, nullable=true)
+     */
+    protected $workPosition;
+
+    /**
+     * @var CsmCompany
+     * @ORM\ManyToOne(targetEntity="App\Entity\Csm\CsmCompany")
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
+     */
+    public $csmCompany;
 
     /**
      * @var string
