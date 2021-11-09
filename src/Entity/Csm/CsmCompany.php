@@ -36,6 +36,14 @@ class CsmCompany
     private $address;
 
     /**
+     * true = Empresa
+     * false= personal
+     * @var boolean
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $flagType;
+
+    /**
      * @var CsmTypePlans
      * @ORM\ManyToOne(targetEntity="App\Entity\Csm\CsmTypePlans")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
@@ -91,6 +99,18 @@ class CsmCompany
     public function setCsmTypePlans(?CsmTypePlans $csmTypePlans): self
     {
         $this->csmTypePlans = $csmTypePlans;
+
+        return $this;
+    }
+
+    public function getFlagType(): ?bool
+    {
+        return $this->flagType;
+    }
+
+    public function setFlagType(?bool $flagType): self
+    {
+        $this->flagType = $flagType;
 
         return $this;
     }

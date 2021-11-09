@@ -86,6 +86,13 @@ class CsmMeeting
     public $csmCompany;
 
     /**
+     * @var CsmProject
+     * @ORM\ManyToOne(targetEntity="App\Entity\Csm\CsmProject", inversedBy="csmMeeting")
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
+     */
+    public $csmProject;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Csm\CsmMeetingDetails", mappedBy="csmMeeting", orphanRemoval=true)
      */
     private $csmMeetingDetails;
@@ -282,6 +289,18 @@ class CsmMeeting
                 $csmMeetingAttendee->setCsmMeeting(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCsmProject(): ?CsmProject
+    {
+        return $this->csmProject;
+    }
+
+    public function setCsmProject(?CsmProject $csmProject): self
+    {
+        $this->csmProject = $csmProject;
 
         return $this;
     }

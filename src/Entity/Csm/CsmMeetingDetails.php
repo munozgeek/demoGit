@@ -40,6 +40,21 @@ class CsmMeetingDetails
      */
     private $csmComments;
 
+    /**
+     * @var CsmMeetingDetails
+     * @ORM\ManyToOne(targetEntity="App\Entity\Csm\CsmMeetingDetails",inversedBy="csmMeetingDetails")
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
+     */
+    private $csmMeetingDetail;
+
+    /**
+     * Bidirectional - One-To-Many (INVERSE SIDE)
+     */
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Csm\CsmMeetingDetails", mappedBy="csmMeetingDetail", orphanRemoval=true)
+     */
+    private $csmMeetingDetails;
+
     #######
     ## Data Tema
     #######
@@ -72,6 +87,12 @@ class CsmMeetingDetails
      * @ORM\Column(type="string", length=150, nullable=true)
      */
     private $nameTask;
+
+    /**
+     * @var string
+     * @ORM\Column(type="text", length=150, nullable=true)
+     */
+    private $descriptionTask;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -107,6 +128,7 @@ class CsmMeetingDetails
     public function __construct()
     {
         $this->csmComments = new ArrayCollection();
+        $this->csmMeetingDetails = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -260,6 +282,60 @@ class CsmMeetingDetails
     public function setAppUserTask(?AppUser $appUserTask): self
     {
         $this->appUserTask = $appUserTask;
+
+        return $this;
+    }
+
+    public function getDescriptionTask(): ?string
+    {
+        return $this->descriptionTask;
+    }
+
+    public function setDescriptionTask(?string $descriptionTask): self
+    {
+        $this->descriptionTask = $descriptionTask;
+
+        return $this;
+    }
+
+    public function getCsmMeetingDetail(): ?self
+    {
+        return $this->csmMeetingDetail;
+    }
+
+    public function setCsmMeetingDetail(?self $csmMeetingDetail): self
+    {
+        $this->csmMeetingDetail = $csmMeetingDetail;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CsmMeetingDetails[]
+     */
+    public function getCsmMeetingDetails(): Collection
+    {
+        return $this->csmMeetingDetails;
+    }
+
+    public function addCsmMeetingDetail(CsmMeetingDetails $csmMeetingDetail): self
+    {
+        if (!$this->csmMeetingDetails->contains($csmMeetingDetail)) {
+            $this->csmMeetingDetails[] = $csmMeetingDetail;
+            $csmMeetingDetail->setCsmMeetingDetail($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCsmMeetingDetail(CsmMeetingDetails $csmMeetingDetail): self
+    {
+        if ($this->csmMeetingDetails->removeElement($csmMeetingDetail)) {
+            // set the owning side to null (unless already changed)
+            if ($csmMeetingDetail->getCsmMeetingDetail() === $this) {
+                $csmMeetingDetail->setCsmMeetingDetail(null);
+            }
+        }
 
         return $this;
     }

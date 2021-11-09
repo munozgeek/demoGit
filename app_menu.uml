@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.app_menu</OriginalElement>
+  <nodes>
+    <node x="694.6813725490197" y="995.0">f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.csm_meeting</node>
+    <node x="843.3498774509803" y="239.0">f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.app_profile</node>
+    <node x="614.5" y="250.0">f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.csm_company</node>
+    <node x="1061.8719362745098" y="643.0">f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.app_profile_order</node>
+    <node x="423.0" y="676.0">f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.csm_project</node>
+    <node x="605.0" y="544.0">f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.app_user</node>
+    <node x="963.009117111195" y="1479.4467344381007">f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.csm_meeting_attendees</node>
+    <node x="235.0" y="698.0">f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.csm_project_status</node>
+    <node x="201.1783088235295" y="1017.0">f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.csm_project_requirement</node>
+    <node x="386.0" y="1419.3828157638213">f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.csm_meeting_details</node>
+    <node x="627.5" y="0.0">f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.csm_type_plans</node>
+    <node x="759.2034313725492" y="1721.0">f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.csm_comments</node>
+    <node x="837.375" y="698.5">f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.app_profile_app_menu</node>
+    <node x="0.0" y="698.0">f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.csm_project_classification</node>
+    <node x="1045.3498774509803" y="195.0">f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.app_menu</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.csm_meeting_details" target="f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.csm_meeting_details" relationship="REFERENCES">
+      <point x="-49.75" y="160.5" />
+      <point x="435.75" y="1760.3828157638213" />
+      <point x="281.63849046093856" y="1760.3828157638213" />
+      <point x="281.63849046093856" y="1579.8828157638213" />
+      <point x="-99.5" y="-0.0" />
+    </edge>
+    <edge source="f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.app_menu" target="f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.app_menu" relationship="REFERENCES">
+      <point x="-72.5" y="138.5" />
+      <point x="1059.8498774509803" y="492.0" />
+      <point x="1025.3498774509803" y="492.0" />
+      <point x="1025.3498774509803" y="333.5" />
+      <point x="-87.0" y="-0.0" />
+    </edge>
+    <edge source="f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.csm_project_requirement" target="f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.csm_project" relationship="REFERENCES">
+      <point x="75.66666666666669" y="-127.5" />
+      <point x="390.3449754901962" y="973.0" />
+      <point x="504.0" y="973.0" />
+      <point x="0.0" y="61.5" />
+    </edge>
+    <edge source="f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.csm_meeting_details" target="f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.csm_meeting" relationship="REFERENCES">
+      <point x="49.75" y="-160.5" />
+      <point x="535.25" y="1321.0" />
+      <point x="775.6813725490197" y="1321.0" />
+      <point x="0.0" y="149.5" />
+    </edge>
+    <edge source="f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.app_user" target="f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.csm_company" relationship="REFERENCES">
+      <point x="-49.75" y="-193.5" />
+      <point x="654.75" y="523.0" />
+      <point x="699.5" y="523.0" />
+      <point x="0.0" y="83.5" />
+    </edge>
+    <edge source="f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.app_profile_app_menu" target="f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.app_profile" relationship="REFERENCES">
+      <point x="-48.0" y="-39.0" />
+      <point x="885.375" y="513.0" />
+      <point x="924.3498774509803" y="513.0" />
+      <point x="0.0" y="94.5" />
+    </edge>
+    <edge source="f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.csm_comments" target="f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.app_user" relationship="REFERENCES">
+      <point x="50.0" y="-61.5" />
+      <point x="909.2034313725492" y="1700.0" />
+      <point x="1227.1260228346314" y="1700.0" />
+      <point x="1227.1260228346314" y="973.0" />
+      <point x="885.75" y="973.0" />
+      <point x="885.75" y="953.0" />
+      <point x="754.25" y="953.0" />
+      <point x="49.75" y="193.5" />
+    </edge>
+    <edge source="f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.app_profile_order" target="f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.app_profile" relationship="REFERENCES">
+      <point x="-88.0" y="-94.5" />
+      <point x="1083.8719362745098" y="513.0" />
+      <point x="924.3498774509803" y="513.0" />
+      <point x="0.0" y="94.5" />
+    </edge>
+    <edge source="f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.csm_meeting" target="f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.csm_company" relationship="REFERENCES">
+      <point x="0.0" y="-149.5" />
+      <point x="775.6813725490197" y="963.0" />
+      <point x="826.875" y="963.0" />
+      <point x="826.875" y="523.0" />
+      <point x="699.5" y="523.0" />
+      <point x="0.0" y="83.5" />
+    </edge>
+    <edge source="f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.csm_meeting_details" target="f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.app_user" relationship="REFERENCES">
+      <point x="-49.75" y="-160.5" />
+      <point x="435.75" y="1321.0" />
+      <point x="654.75" y="1321.0" />
+      <point x="-49.75" y="193.5" />
+    </edge>
+    <edge source="f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.app_user" target="f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.app_profile" relationship="REFERENCES">
+      <point x="49.75" y="-193.5" />
+      <point x="754.25" y="513.0" />
+      <point x="924.3498774509803" y="513.0" />
+      <point x="0.0" y="94.5" />
+    </edge>
+    <edge source="f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.csm_meeting" target="f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.csm_project" relationship="REFERENCES">
+      <point x="-54.0" y="-149.5" />
+      <point x="721.6813725490197" y="973.0" />
+      <point x="504.0" y="973.0" />
+      <point x="0.0" y="61.5" />
+    </edge>
+    <edge source="f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.csm_meeting" target="f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.app_user" relationship="REFERENCES">
+      <point x="54.0" y="-149.5" />
+      <point x="829.6813725490197" y="973.0" />
+      <point x="885.75" y="973.0" />
+      <point x="885.75" y="953.0" />
+      <point x="754.25" y="953.0" />
+      <point x="49.75" y="193.5" />
+    </edge>
+    <edge source="f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.csm_meeting_attendees" target="f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.csm_meeting" relationship="REFERENCES">
+      <point x="-50.75" y="-61.5" />
+      <point x="1013.7591171111949" y="1337.8723019078125" />
+      <point x="775.6813725490197" y="1337.8723019078125" />
+      <point x="0.0" y="149.5" />
+    </edge>
+    <edge source="f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.csm_meeting_attendees" target="f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.app_user" relationship="REFERENCES">
+      <point x="50.75" y="-61.5" />
+      <point x="1115.2591171111949" y="1321.0" />
+      <point x="920.2469362745098" y="1321.0" />
+      <point x="920.2469362745098" y="973.0" />
+      <point x="885.75" y="973.0" />
+      <point x="885.75" y="953.0" />
+      <point x="754.25" y="953.0" />
+      <point x="49.75" y="193.5" />
+    </edge>
+    <edge source="f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.csm_project" target="f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.csm_company" relationship="REFERENCES">
+      <point x="-5.6843418860808015E-14" y="-61.5" />
+      <point x="503.99999999999994" y="523.0" />
+      <point x="699.5" y="523.0" />
+      <point x="0.0" y="83.5" />
+    </edge>
+    <edge source="f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.csm_company" target="f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.csm_type_plans" relationship="REFERENCES">
+      <point x="0.0" y="-83.5" />
+      <point x="0.0" y="72.5" />
+    </edge>
+    <edge source="f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.csm_project_requirement" target="f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.csm_project_classification" relationship="REFERENCES">
+      <point x="-75.66666666666669" y="-127.5" />
+      <point x="239.01164215686276" y="973.0" />
+      <point x="107.5" y="973.0" />
+      <point x="0.0" y="39.5" />
+    </edge>
+    <edge source="f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.app_profile_order" target="f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.app_menu" relationship="REFERENCES">
+      <point x="0.0" y="-94.5" />
+      <point x="1171.8719362745098" y="523.0" />
+      <point x="1146.8498774509803" y="523.0" />
+      <point x="14.5" y="138.5" />
+    </edge>
+    <edge source="f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.csm_project_requirement" target="f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.csm_project_status" relationship="REFERENCES">
+      <point x="0.0" y="-127.5" />
+      <point x="314.6783088235295" y="973.0" />
+      <point x="319.0" y="973.0" />
+      <point x="0.0" y="39.5" />
+    </edge>
+    <edge source="f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.csm_comments" target="f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.csm_meeting_details" relationship="REFERENCES">
+      <point x="-50.0" y="-61.5" />
+      <point x="809.2034313725492" y="1700.0" />
+      <point x="535.25" y="1700.0" />
+      <point x="49.75" y="160.5" />
+    </edge>
+    <edge source="f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.app_profile_app_menu" target="f1b9b643-29b3-4d3b-ac8e-275f42f692ee.TABLE:simpleMeeting.app_menu" relationship="REFERENCES">
+      <point x="48.0" y="-39.0" />
+      <point x="981.375" y="503.0" />
+      <point x="1088.8498774509803" y="503.0" />
+      <point x="-43.5" y="138.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.7704935622317597" showDependencies="false" x="783.0" y="1349.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Columns</Category>
+    <Category>Comments</Category>
+    <Category>Key columns</Category>
+    <Category>Virtual foreign keys</Category>
+  </Categories>
+</Diagram>
+
